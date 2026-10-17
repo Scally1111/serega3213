@@ -1,0 +1,61 @@
+{
+  "name": "serega-v3-desktop",
+  "productName": "Serega V3",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Serega V3 — desktop 3D team FPS built with Three.js, Electron and WebSockets",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "dist:win": "electron-builder --win nsis --x64",
+    "dist:win:portable": "electron-builder --win portable --x64",
+    "check": "node --check server.js && node --check client.js && node --check desktop/main.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "three": "^0.180.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.serega.v3.desktop",
+    "productName": "Serega V3",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "index.html",
+      "client.js",
+      "server.js",
+      "package.json",
+      "assets/**/*",
+      "desktop/**/*",
+      "node_modules/**/*",
+      "!release/**/*",
+      "!*.zip"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "Serega-V3-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Serega V3"
+    },
+    "portable": {
+      "artifactName": "Serega-V3-Portable-${version}.${ext}"
+    }
+  }
+}
